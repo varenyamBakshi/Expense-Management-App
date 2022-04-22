@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Expense List</h1>
+  {% if usergroup_list %}
+  <ul>
+    {% for book in usergroup_list %}
+      <li>
+        <a href="{{ book.get_absolute_url }}">{{ book }}</a> ({{book}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no Expense right now.</p>
+  {% endif %}
+{% endblock %}

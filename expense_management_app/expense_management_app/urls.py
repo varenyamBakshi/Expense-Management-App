@@ -15,7 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('group_list/', views.UserGroupListView.as_view(), name='group_list'),
+    path('group/<int:pk>/', views.UserGroupDetailView.as_view(), name='group_detail'),
+    path('home/', views.home, name='home'),
+    path('register/', views.register, name='register'),
+    path('create_group/', views.create_group, name='create_group'),
+    path('view_unsettled_transactions/<int:id>/', views.view_unsettled_transactions, name='view_unsettled_transactions'),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
