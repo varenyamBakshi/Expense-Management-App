@@ -22,13 +22,16 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', auth_views.LoginView.as_view(), name='login'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('group_list/', views.UserGroupListView.as_view(), name='group_list'),
-    path('group/<int:pk>/', views.UserGroupDetailView.as_view(), name='group_detail'),
+    path('group/<int:pk>/`', views.UserGroupDetailView.as_view(), name='group_detail'),
     path('home/', views.home, name='home'),
     path('register/', views.register, name='register'),
     path('create_group/', views.create_group, name='create_group'),
+    path('add_expense/', views.add_expense, name='add_expense'),
+    path('add_member/', views.add_member, name='add_member'),
     path('view_unsettled_transactions/<int:id>/', views.view_unsettled_transactions, name='view_unsettled_transactions'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

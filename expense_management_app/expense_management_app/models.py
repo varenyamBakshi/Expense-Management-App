@@ -8,7 +8,7 @@ from django.urls import reverse
 
 class UserGroup(models.Model):
     users = models.ManyToManyField(User,related_name='user_groups')
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=False, unique=True)
 
     class Meta:
         verbose_name = 'Group'
@@ -37,6 +37,7 @@ class Settlement(models.Model):
         return reverse('settlement_detail', kwargs={'pk': self.pk})
 
 class Expense(models.Model):
+    name = models.CharField(max_length=100, default='hello')
     group = models.ForeignKey(UserGroup, on_delete=models.CASCADE, related_name='group_expenses')
     amount = models.DecimalField(max_digits=11, decimal_places=2)
     payer = models.ForeignKey(User, related_name='payer_expenses', on_delete=models.CASCADE)

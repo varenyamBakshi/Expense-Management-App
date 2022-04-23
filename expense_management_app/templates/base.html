@@ -2,7 +2,7 @@
   <head>
     <title>Base template</title>
  
-    <!-- CSS only -->
+    {% comment %} <!-- CSS only -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -13,13 +13,22 @@
       .col-centered {
         text-align: center;
       }
-    </style>
+    </style> {% endcomment %}
   </head>
   <body>
-    {% block content %} {% endblock %}
+    {% if request.user.is_authenticated %}
+      <div>
+        <a style="padding-left: 30%; padding-right: 5%; font-size: x-large;" href="/group_list/">Groups</a>
+        <a style="padding-left: 5%; padding-right: 5%;  font-size: x-large;" href="/create_group/">Create Group</a>
+        <a style="padding-left: 5%;  font-size: x-large;" href="/logout/">Logout</a>
+      </div>
+    {% endif %}
+
+    {% block content %} 
+    {% endblock %}
  
     <!-- JS, Popper.js, and jQuery -->
-    <script
+    {% comment %} <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
       crossorigin="anonymous"
@@ -33,6 +42,6 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
-    ></script>
+    ></script> {% endcomment %}
   </body>
 </html>
