@@ -1,23 +1,39 @@
 from collections import defaultdict
 
-zero = lambda x: 0
+def zero():
+    return 0
 
-def transaction_simplification(expenses):
-    amount_to_pay = defaultdict(zero)
+def transaction_simplification(expenses, user):
+    output = {}
     for expense in expenses:
-        amount_per_user = expense.amount/ len(expense.users_involved)
-        amount_to_pay[expense.payer] = amount_to_pay[expense.payer] - expense.amount_per_user
-        for user in expense.users_involved:
-            amount_to_pay[user] = amount_to_pay[user] + amount_per_user
-    givers = dict()
-    recievers = dict()
-    for user, pending_amount in amount_to_pay.items():
-        if pending_amount < 0: recievers[user] = pending_amount
-        else: givers[user] = pending_amount
-    givers = sorted(givers.items())
-    recievers = sorted(recievers.items())
-    iter_reciever = iter(recievers)
-    pending_transactions = []
-    for giver in givers:
-        if(givers[giver] < )
+        if expense.settled_expense: continue
+        expense_num_members = len(expense.users_involved.all())
+        expense_amount_per_person = expense.amount / expense_num_members
+
+        for user in expense.users_involved.all():
+            if user == expense.payer:
+                continue
+            else:
+                if expense.payer not in output:
+                    output[expense.payer] = {}
+                if user not in output:
+                    output[user] = {}
+                if user not in output[expense.payer]:
+                    output[expense.payer][user] = 0
+                if expense.payer not in output[user]:
+                    output[user][expense.payer] = 0
+
+                output[expense.payer][user] += expense_amount_per_person # payer gains the money
+                output[user][expense.payer] -= expense_amount_per_person # user gives the payer
+
+        print("Expense info for " + user)
+        for member in output[user]:
+            amount = output[user][member]
+            if amount > 0:
+                print("You should take from " + member + " this much amount = " + str(amount))
+            elif amount < 0:
+                print("You should give " + member + " this much amount = " + str(-amount))
+            
+        print()
+
         

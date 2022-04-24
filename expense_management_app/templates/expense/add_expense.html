@@ -7,7 +7,18 @@
     
         <!-- Using the formset -->
         <!-- Group Name -->
-        {{ form.as_p }}
+        <p>
+            {{ form.name }}
+        </p>
+        <p>
+            {{ form.users_involved }}
+        </p>
+        <p>
+            {{ form.amount }}
+        </p>
+        <p>
+            {{ form.payer }}
+        </p>
 
         <input type="submit" value="Submit">
     </form>

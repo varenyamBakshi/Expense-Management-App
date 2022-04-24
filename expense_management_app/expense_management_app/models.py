@@ -18,7 +18,7 @@ class UserGroup(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('group_detail', kwargs={'pk': self.pk})
+        return reverse('group_detail', kwargs={'group_id': self.pk})
 
 class Settlement(models.Model):
     group = models.ForeignKey(UserGroup, related_name='group_settlements', on_delete=models.CASCADE)
@@ -37,11 +37,12 @@ class Settlement(models.Model):
         return reverse('settlement_detail', kwargs={'pk': self.pk})
 
 class Expense(models.Model):
-    name = models.CharField(max_length=100, default='hello')
+    name = models.CharField(max_length=100)
     group = models.ForeignKey(UserGroup, on_delete=models.CASCADE, related_name='group_expenses')
     amount = models.DecimalField(max_digits=11, decimal_places=2)
     payer = models.ForeignKey(User, related_name='payer_expenses', on_delete=models.CASCADE)
-    users_involved = models.ManyToManyField(User, related_name='all_expenses')
+    users_involved = models.ManyToManyField(User, related_name='all_debt_expenses')
+    settled_expense = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Expense'

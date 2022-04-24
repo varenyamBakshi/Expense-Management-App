@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+    {% block content %}
+        <h1>Group {{ group_name }}</h1>
+        <button>
+            <a href={% url 'view_unsettled_transactions' group_id=group_id %}>View Unsettled Expenses</a>
+        </button>
+        <p>Expenses</p>
+        <ul>
+            {% for expense in expenses %}
+                {% if expense.settled_expense == False %}
+                <li>
+                    Expense {{ forloop.counter }}:
+                    Name: {{ expense.name }},
+                    Amount Payed: {{ expense.amount }},
+                    Payer: {{ expense.payer.username }},
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <button><a class="btn btn-primary" href={% url 'add_expense' group_id=group_id %}>Add Expense</a></button>
+        
+        <p>Users in group:</p>
+        <ul>
+            {% for member in members %}
+                <li>{{ member.username }}</li>
+            {% endfor %}
+        </ul>
+        <button><a class="btn btn-primary" href={% url 'add_member' group_id=group_id %}>Add Member</a></button>
+{% endblock %}

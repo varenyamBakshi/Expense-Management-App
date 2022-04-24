@@ -2,28 +2,32 @@ from django import forms
 from .models import UserGroup, Expense
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserModel
+from django.contrib.auth.models import User
   
   
 class GroupForm(forms.ModelForm):
   
     class Meta:
         model = UserGroup
-  
-        fields = [
-            # 'users',
-            'name'
-        ]
+        fields = ['name']
+
 
 class ExpenseForm(forms.ModelForm):
 
     class Meta:
         model = Expense
-
         fields = [
-            'users_involved',
+            'name',
             'amount',
-            'payer'
+            'payer',
+            'users_involved'
         ]
 
-class MemberForm(forms.Form):
-    users = forms.ModelMultipleChoiceField(queryset=UserModel.objects.all())
+class EditGroupForm(forms.ModelForm):
+  
+    class Meta:
+        model = UserGroup
+        fields = ['users']
+
+class SettleTransactionsForm(forms.Form):
+    file = forms.FileField()

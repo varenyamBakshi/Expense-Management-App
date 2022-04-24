@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for expense in expenses %}
+    {% if expense.settled_expense == False %}
+    <li>
+        Expense {{ forloop.counter }}:
+        Name: {{ expense.name }},
+        Amount Payed: {{ expense.amount }},
+        Payer: {{ expense.payer.username }},
+    </li>
+    {% endif %}
+    {% endfor %}
+{% endblock content %}
