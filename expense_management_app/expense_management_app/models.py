@@ -7,7 +7,7 @@ from django.urls import reverse
 #######################################################
 
 class UserGroup(models.Model):
-    users = models.ManyToManyField(User,related_name='user_groups')
+    users = models.ManyToManyField(User, related_name='user_groups')
     name = models.CharField(max_length=100, blank=False, unique=True)
 
     class Meta:
